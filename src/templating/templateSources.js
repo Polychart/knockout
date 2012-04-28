@@ -27,7 +27,8 @@
     
     ko.templateSources.domElement.prototype['text'] = function(/* valueToWrite */) {
         if (arguments.length == 0) {
-            return this.domElement.tagName.toLowerCase() == "script" ? this.domElement.text : this.domElement.innerHTML;
+            var value = this.domElement.tagName.toLowerCase() == "script" ? this.domElement.text : this.domElement.innerHTML;
+            return ko.utils.stringTrim(value);
         } else {
             var valueToWrite = arguments[0];
             if (this.domElement.tagName.toLowerCase() == "script")

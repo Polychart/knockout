@@ -2,7 +2,7 @@
 // (c) Steven Sanderson - http://knockoutjs.com/
 // License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
-(function(window,undefined){ 
+(function(window,undefined){
 var ko = window["ko"] = {};
 // Google Closure Compiler helpers (used only to make the minified file smaller)
 ko.exportSymbol = function(publicPath, object) {
@@ -2628,7 +2628,8 @@ ko.exportSymbol('ko.templateRewriting.applyMemoizedBindingsToNextSibling', ko.te
     
     ko.templateSources.domElement.prototype['text'] = function(/* valueToWrite */) {
         if (arguments.length == 0) {
-            return this.domElement.tagName.toLowerCase() == "script" ? this.domElement.text : this.domElement.innerHTML;
+            var value = this.domElement.tagName.toLowerCase() == "script" ? this.domElement.text : this.domElement.innerHTML;
+            return ko.utils.stringTrim(value);
         } else {
             var valueToWrite = arguments[0];
             if (this.domElement.tagName.toLowerCase() == "script")
@@ -2666,6 +2667,7 @@ ko.exportSymbol('ko.templateRewriting.applyMemoizedBindingsToNextSibling', ko.te
     ko.exportSymbol('ko.templateSources.domElement', ko.templateSources.domElement);
     ko.exportSymbol('ko.templateSources.anonymousTemplate', ko.templateSources.anonymousTemplate);
 })();
+
 (function () {
     var _templateEngine;
     ko.setTemplateEngine = function (templateEngine) {
@@ -3220,4 +3222,4 @@ ko.exportSymbol('ko.nativeTemplateEngine', ko.nativeTemplateEngine);(function() 
         ko.setTemplateEngine(jqueryTmplTemplateEngineInstance);
     
     ko.exportSymbol('ko.jqueryTmplTemplateEngine', ko.jqueryTmplTemplateEngine);
-})();})(window);                  
+})();})(window);
