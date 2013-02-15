@@ -259,5 +259,44 @@ describe('Observable Array', {
         // Don't just trust getSubscriptionsCount - directly verify that mutating newArray doesn't cause a re-eval
         newArray.push("Another");
         value_of(timesEvaluated).should_be(1);
+    },
+
+    'Should push items from the input array into the current': function() {
+        testObservableArray(["Alpha", "Beta", "Gamma"]);
+        testObservableArray.pushAll(["Delta", "Epsilon", "Zeta"]);
+        value_of(testObservableArray().length).should_be(6);
+        value_of(testObservableArray()).should_be(["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta"]);
+    },
+
+    'Should return the modified array on pushAll': function() {
+        testObservableArray(["Alpha", "Beta", "Gamma"]);
+        value_of(testObservableArray.pushAll(["Delta", "Epsilon", "Zeta"])).should_be(["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta"]);
+    },
+
+    'Should return a empty array and not modify the current if input argument is not an instance of Array': function() {
+        testObservableArray(["Alpha", "Beta", "Gamma"]);
+        value_of(testObservableArray.pushAll("Delta")).should_be([]);
+        value_of(testObservableArray()).should_be(["Alpha", "Beta", "Gamma"]);
+    },
+
+    'Should notify "beforeChange" subscribers before pushAll': function () {
+        testObservableArray(["Alpha", "Beta", "Gamma"]);
+        var notified = false;
+        testObservableArray.subscribe(function(value) {
+            notified = true;
+        }, null, "beforeChange");
+        testObservableArray.pushAll(["Delta", "Epsilon", "Zeta"]);
+        value_of(notified).should_be(true);
+    },
+
+    'Should notify subscribers after pushAll': function() {
+        testObservableArray(["Alpha", "Beta", "Gamma"]);
+        var notified = false;
+        testObservableArray.subscribe(function(value) {
+            notified = true;
+        });
+        testObservableArray.pushAll(["Delta", "Epsilon", "Zeta"]);
+        value_of(notified).should_be(true);
     }
+>>>>>>> Fixed typo; Added specs
 })
