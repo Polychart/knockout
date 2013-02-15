@@ -268,14 +268,14 @@ describe('Observable Array', {
         value_of(testObservableArray()).should_be(["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta"]);
     },
 
-    'Should return the modified array on pushAll': function() {
+    'Should return the Array length': function() {
         testObservableArray(["Alpha", "Beta", "Gamma"]);
-        value_of(testObservableArray.pushAll(["Delta", "Epsilon", "Zeta"])).should_be(["Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta"]);
+        value_of(testObservableArray.pushAll(["Delta", "Epsilon", "Zeta"])).should_be(6);
     },
 
-    'Should return a empty array and not modify the current if input argument is not an instance of Array': function() {
+    'Should not modify the current if input argument is not an instance of Array': function() {
         testObservableArray(["Alpha", "Beta", "Gamma"]);
-        value_of(testObservableArray.pushAll("Delta")).should_be([]);
+        testObservableArray.pushAll("Delta");
         value_of(testObservableArray()).should_be(["Alpha", "Beta", "Gamma"]);
     },
 
