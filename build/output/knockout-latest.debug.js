@@ -1,4 +1,4 @@
-// Knockout JavaScript library v2.2.1
+// Knockout JavaScript library v2.2.1-polychart2
 // (c) Steven Sanderson - http://knockoutjs.com/
 // License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
@@ -37,7 +37,7 @@ ko.exportSymbol = function(koPath, object) {
 ko.exportProperty = function(owner, publicName, object) {
   owner[publicName] = object;
 };
-ko.version = "2.2.1";
+ko.version = "2.2.1-polychart2";
 
 ko.exportSymbol('version', ko.version);
 ko.utils = new (function () {
@@ -1141,6 +1141,13 @@ ko.observableArray['fn'] = {
             this.peek()[index] = newItem;
             this.valueHasMutated();
         }
+    },
+    'pushAll': function(items) {
+        if(!(items instanceof Array)) return this.peek().length;
+        this.valueWillMutate();
+        ko.utils.arrayPushAll(this.peek(), items);
+        this.valueHasMutated();
+        return this.peek().length;
     }
 }
 
